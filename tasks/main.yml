@@ -20,19 +20,12 @@
       tags:
         - spectacle
 
-    - name: Remove quarantine flag
-      register: spectacle_quarantine
-      failed_when: spectacle_quarantine.rc != 0 and "No such xattr" not in spectacle_quarantine.stderr
-      changed_when: spectacle_quarantine.rc == 0
-      command: xattr -d com.apple.quarantine /Applications/Spectacle.app
-      tags:
-        - spectacle
-
-    - name: Start background application
-      when: spectacle_started
-      changed_when: False
-      command: open -j /Applications/Spectacle.app
-      tags:
-        - spectacle
+- name: Remove quarantine flag
+  register: spectacle_quarantine
+  failed_when: spectacle_quarantine.rc != 0 and "No such xattr" not in spectacle_quarantine.stderr
+  changed_when: spectacle_quarantine.rc == 0
+  command: xattr -d com.apple.quarantine /Applications/Spectacle.app
+  tags:
+    - spectacle
 
 ...
